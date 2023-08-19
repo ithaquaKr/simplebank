@@ -34,4 +34,7 @@ migratedown:
 	@echo "Migrate down schema for database..."
 	migrate -path db/migrations -database "${DB_URL}" -verbose down
 
-.PHONY: postgresql createdb dropdb migrateup migratedown
+sqlc:
+	sqlc generate
+
+.PHONY: postgresql createdb dropdb migrateup migratedown sqlc
