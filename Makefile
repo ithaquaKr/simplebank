@@ -20,11 +20,11 @@ postgresql:
 
 createdb:
 	@echo "Creating database.."
-	docker exec -it postgresql createdb --username=backend --owner=backend simple_bank
+	docker exec -it postgresql createdb --username=${POSTGRES_DB_USER} --owner=${POSTGRES_DB_USER} ${POSTGRES_DB}
 
 dropdb:
 	@echo "Droping database..."
-	docker exec -it postgresql dropdb simple_bank
+	docker exec -it postgresql dropdb ${POSTGRES_DB}
 
 migrateup:
 	@echo "Migrate up schema for database..."
@@ -37,4 +37,7 @@ migratedown:
 sqlc:
 	sqlc generate
 
-.PHONY: postgresql createdb dropdb migrateup migratedown sqlc
+test:
+	go test -v -cover ./...
+
+.PHONY: postgresql createdb dropdb migrateup migratedown sqlc test
